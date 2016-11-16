@@ -17,13 +17,14 @@ var UserService = (function () {
         this.http = http;
         this.authenticationService = authenticationService;
     }
-    UserService.prototype.getUsers = function () {
-        // add authorization header with jwt token
-        var headers = new http_1.Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-        var options = new http_1.RequestOptions({ headers: headers });
-        // get users from api
-        return this.http.get('/api/users', options)
-            .map(function (response) { return response.json(); });
+    UserService.prototype.putNewUsers = function () {
+        // // add authorization header with jwt token
+        // let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.access_token });
+        // let options = new RequestOptions({ headers: headers });
+        // // get users from api
+        // return this.http.get('http://localhost:8081/api/users', options)
+        //     .map((response: Response) => response.json());
+        return null;
     };
     UserService = __decorate([
         core_1.Injectable(), 

@@ -12,6 +12,8 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
+var ng2_datepicker_1 = require('ng2-datepicker');
+var ng2_bootstrap_1 = require('ng2-bootstrap');
 // used to create fake backend
 // import { fakeBackendProvider } from './_helpers/index';
 // import { MockBackend, MockConnection } from '@angular/http/testing';
@@ -21,7 +23,8 @@ var app_routing_1 = require('./app.routing');
 // import { AuthGuard } from './_guards/index';
 var index_1 = require('./_services/index');
 var index_2 = require('./login/index');
-// import { HomeComponent } from './home/index';
+var index_3 = require('./home/index');
+var index_4 = require('./popup/index');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -31,11 +34,20 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 http_1.HttpModule,
-                app_routing_1.AppRoutingModule
+                app_routing_1.routing,
+                forms_1.ReactiveFormsModule,
+                ng2_datepicker_1.DatePickerModule,
+                ng2_bootstrap_1.DatepickerModule
+            ],
+            exports: [
+                ng2_bootstrap_1.DatepickerModule,
+                ng2_datepicker_1.DatePickerModule
             ],
             declarations: [
                 app_component_1.AppComponent,
                 index_2.LoginComponent,
+                index_3.HomeComponent,
+                index_4.PopupComponent
             ],
             providers: [
                 // AuthGuard,

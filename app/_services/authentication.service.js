@@ -16,23 +16,29 @@ var AuthenticationService = (function () {
         this.http = http;
         // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = currentUser && currentUser.token;
+        this.access_token = currentUser && currentUser.token;
     }
     AuthenticationService.prototype.login = function (username, password) {
         var _this = this;
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Basic dGVzdENsaWVudDp0ZXN0U2VjcmV0');
         var options = new http_1.RequestOptions({ headers: headers });
-        var a = this.http.post('http://localhost:8081/auth', JSON.stringify({ grant_type: password, username: 'ml@uc.edu', password: 'ucapplab' }), options)
+        var a = this.http.post('http://localhost:8081/auth', JSON.stringify({ grant_type: 'password', username: 'ml@uc.edu', password: 'ucapplab' }), options)
             .map(function (response) {
             // login successful if there's a jwt token in the response
-            var token = response.json() && response.json().token;
-            if (token) {
+            var access_token = response.json() && response.json().access_token;
+            var refresh_token = response.json() && response.json().refresh_token;
+            var token_type = response.json() && response.json().token_type;
+            console.log(response.json());
+            console.log(response.json().access_token);
+            if (access_token) {
                 // set token property
-                _this.token = token;
+                _this.access_token = access_token;
+                _this.refresh_token = refresh_token;
+                _this.token_type = token_type;
                 // store username and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
-                alert(token);
+                localStorage.setItem('currentUser', JSON.stringify({ username: username, access_token: access_token, refresh_token: refresh_token, token_type: token_type }));
                 // return true to indicate successful login
                 return true;
             }
@@ -41,11 +47,12 @@ var AuthenticationService = (function () {
                 return false;
             }
         });
+        // console.log(a)
         return a;
     };
     AuthenticationService.prototype.logout = function () {
         // clear token remove user from local storage to log user out
-        this.token = null;
+        this.access_token = null;
         localStorage.removeItem('currentUser');
     };
     AuthenticationService = __decorate([

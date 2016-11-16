@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
 
 import { AuthenticationService } from './index';
-import { User } from '../_models/index';
+import { Trial } from '../_models/index';
 
 @Injectable()
 export class UserService {
@@ -13,13 +13,15 @@ export class UserService {
         private authenticationService: AuthenticationService) {
     }
 
-    getUsers(): Observable<User[]> {
-        // add authorization header with jwt token
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers });
+    putNewUsers(){//: Observable<U> {
+        // // add authorization header with jwt token
+        // let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.access_token });
+        // let options = new RequestOptions({ headers: headers });
 
-        // get users from api
-        return this.http.get('/api/users', options)
-            .map((response: Response) => response.json());
+        // // get users from api
+        // return this.http.get('http://localhost:8081/api/users', options)
+        //     .map((response: Response) => response.json());
+
+        return null;
     }
 }

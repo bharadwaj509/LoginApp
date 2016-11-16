@@ -1,0 +1,64 @@
+<div class="dialog jumbotron" *ngIf="messageIsVisible">
+    <button (click)="hideMessage()" aria-label="Close" class="dialog__close-btn">X</button>
+    <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
+      <h2>Patient Information</h2>
+      <!-- We add an additional check to see if the user has at least clicked on the form field before displaying the error -->
+      <div class="form-group" [ngClass]="{'has-error':!complexForm.controls['firstName'].valid && complexForm.controls['firstName'].touched}">
+        <label>First Name:</label>
+        <input class="form-control" type="text" placeholder="John" [formControl]="complexForm.controls['firstName']">
+      </div>
+      <div class="form-group" [ngClass]="{'has-error':!complexForm.controls['lastName'].valid && complexForm.controls['lastName'].touched}">
+        <label>Last Name</label>
+        <input class="form-control" type="text" placeholder="Doe" [formControl]="complexForm.controls['lastName']">
+      </div>
+      <div class="form-group">
+        <label>Patient #</label>
+        <input class="form-control" type="text" placeholder="id" [formControl]="complexForm.controls['patientID']">
+      </div>
+      
+      <div class="form-group"  [ngClass]="{'has-error':!complexForm.controls['trialInfo'].valid && complexForm.controls['trialInfo'].touched}">
+        <label>Trial Info</label>
+        <select class="form-control" [formControl]="complexForm.controls['trialInfo']" required>
+            <option *ngFor="let trial of trials" value= {{trial.trialName}}>
+                {{trial.trialName}}
+            </option>
+        </select>
+      </div>
+
+      <div class="form-group" [ngClass]="{'has-error':!complexForm.controls['phoneNo'].valid && complexForm.controls['phoneNo'].touched}">
+        <label>Phone No</label>
+        <input class="form-control" type="text" placeholder="John" [formControl]="complexForm.controls['phoneNo']" pattern="[0-9]{5}">
+      </div>
+
+      <div class="form-group" [ngClass]="{'has-error':!complexForm.controls['emailId'].valid}">
+        <label>Email</label>
+        <input class="form-control" type="text" placeholder="John" [formControl]="complexForm.controls['emailId']">
+      </div>
+
+      <h2>Appointment Information</h2>
+      <div class="form-group" [ngClass]="{'has-error':!complexForm.controls['location'].valid && complexForm.controls['location'].touched}">
+        <label>location:</label>
+        <input class="form-control" type="text" placeholder="John" [formControl]="complexForm.controls['location']">
+      </div>
+
+      <div class="form-group" [ngClass]="{'has-error':!complexForm.controls['date-pick'].valid && complexForm.controls['date-pick'].touched}">
+        <label>Date:</label> 
+        <input type="text" value="{{ getDate() | date:'dd-MMMM-yyyy' }}" class="form-control" (click)="open()"> 
+        <datepicker [(ngModel)]="dt" [ngModelOptions]="{standalone: true}" [showWeeks]="false" [hidden]="opened" [minDate]="minDate" (click)="open()"></datepicker>
+      </div>
+
+      <h2>Doctor Information</h2>
+      <div class="form-group"  [ngClass]="{'has-error':!complexForm.controls['doctorInfo'].valid && complexForm.controls['doctorInfo'].touched}">
+        <label>Doctor Info</label>
+        <select class="form-control" [formControl]="complexForm.controls['doctorInfo']" required>
+            <option *ngFor="let trial of trials" value= {{trial.trialName}}>
+                {{trial.trialName}}
+            </option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary" [disabled]="!complexForm.valid">Submit</button>
+      </div>
+    </form>
+  </div>

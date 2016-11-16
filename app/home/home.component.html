@@ -1,0 +1,14 @@
+<div class="col-md-6 col-md-offset-3">
+    <h1>Home</h1>
+    <p>You're logged in</p>
+    <p><a [routerLink]="['/login']">Logout</a></p>
+
+    <div class="form-group" (click)="showDialog = !showDialog">
+        <button class="btn btn-primary" >Insert Data</button>
+    </div>
+
+    <popup [(messageIsVisible)]="showDialog">    
+        <button (click)="showDialog = !showDialog" class="btn">Close</button>
+    </popup>
+
+</div>

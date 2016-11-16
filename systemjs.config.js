@@ -24,7 +24,11 @@
       '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
       // other libraries
       'rxjs':                      'npm:rxjs',
-      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
+      'ng2-datepicker':              'node_modules/ng2-datepicker/bundle/ng2-datepicker.umd.js',
+      'ng2-bootstrap':               'node_modules/ng2-bootstrap/bundles/ng2-bootstrap.umd.js',
+      'moment': 'node_modules/moment/moment.js'
+
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -34,6 +38,9 @@
       },
       rxjs: {
         defaultExtension: 'js'
+      },
+      'ng2-datepicker': {
+        defaultExtensions: 'js' 
       }
     }
   });
